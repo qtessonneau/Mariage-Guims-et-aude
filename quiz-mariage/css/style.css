@@ -504,6 +504,14 @@ h1 {
   border-radius: 4px;
 }
 
+.result-ranking-notice {
+  color: var(--color-primary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
 .footer {
   position: relative;
   z-index: 1;
