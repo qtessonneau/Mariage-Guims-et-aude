@@ -5,13 +5,13 @@
  *
  * Laisser vide = détection automatique depuis l'adresse actuelle
  */
-export const SITE_URL = "https://VOTRE-USERNAME.github.io/quiz-mariage";
+export const SITE_URL = "https://qteessonneau.github.io/quiz-mariage";
 
 export const COUPLE_NAMES = "Aude & Guims";
 
 /** Retourne l'URL du quiz pointée par le QR code */
 export function getQuizUrl() {
-  if (SITE_URL && !SITE_URL.includes("VOTRE-USERNAME")) {
+  if (SITE_URL && !SITE_URL.includes("qtessonneau")) {
     return SITE_URL.replace(/\/$/, "") + "/";
   }
 
