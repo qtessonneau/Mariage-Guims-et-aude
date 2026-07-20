@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Quiz de mariage — Testez vos connaissances sur les mariés !">
+  <title>Quiz de Mariage 💍</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="petals" aria-hidden="true"></div>
+
+  <main class="container">
+    <!-- Écran d'accueil -->
+    <section id="screen-welcome" class="screen active">
+      <div class="card welcome-card">
+        <p class="eyebrow">Bienvenue au</p>
+        <h1>Quiz de Mariage</h1>
+        <p class="couple-names" id="couple-names">Marie &amp; Pierre</p>
+        <p class="subtitle">
+          Combien connaissez-vous les mariés ?<br>
+          Répondez aux questions et découvrez votre score !
+        </p>
+        <button type="button" class="btn btn-primary" id="btn-start">
+          Commencer le quiz
+        </button>
+      </div>
+    </section>
+
+    <!-- Écran du quiz -->
+    <section id="screen-quiz" class="screen">
+      <div class="card quiz-card">
+        <div class="quiz-header">
+          <span class="question-counter" id="question-counter">Question 1 / 10</span>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+        </div>
+
+        <h2 class="question-text" id="question-text"></h2>
+
+        <ul class="answers" id="answers-list" role="list"></ul>
+
+        <button type="button" class="btn btn-primary btn-next" id="btn-next" disabled>
+          Question suivante
+        </button>
+      </div>
+    </section>
+
+    <!-- Écran des résultats -->
+    <section id="screen-results" class="screen">
+      <div class="card results-card">
+        <p class="eyebrow">Résultat</p>
+        <h1 id="result-title">Bravo !</h1>
+        <div class="score-circle">
+          <span class="score-value" id="score-value">0</span>
+          <span class="score-total">/ <span id="score-total">10</span></span>
+        </div>
+        <p class="result-message" id="result-message"></p>
+        <button type="button" class="btn btn-secondary" id="btn-restart">
+          Rejouer
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Fait avec ♥ pour le grand jour</p>
+  </footer>
+
+  <script src="js/quiz.js"></script>
+</body>
+</html>
