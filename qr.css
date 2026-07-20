@@ -1,0 +1,135 @@
+.qr-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-container {
+  width: 100%;
+  max-width: 480px;
+  padding: 2rem 1.25rem;
+}
+
+.qr-card {
+  background: var(--color-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  border: 1px solid rgba(201, 168, 124, 0.2);
+}
+
+.qr-card h1 {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-style: italic;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.qr-instruction {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1.75rem;
+}
+
+.qr-code-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.qr-code-wrap canvas {
+  border-radius: 12px;
+  box-shadow: var(--shadow-soft);
+}
+
+.qr-url {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  word-break: break-all;
+  margin-bottom: 1.5rem;
+}
+
+.qr-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.qr-actions .btn {
+  width: 100%;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.qr-copy-feedback {
+  margin-top: 0.75rem;
+  color: var(--color-success);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Section QR dans le panneau admin */
+.qr-admin-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: var(--color-bg);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.qr-admin-preview {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.qr-admin-url {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  word-break: break-all;
+  margin-bottom: 1rem;
+}
+
+.qr-admin-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.qr-admin-actions .btn {
+  width: 100%;
+}
+
+/* Impression — affiche uniquement le QR code */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body.qr-page {
+    background: white;
+  }
+
+  .petals {
+    display: none;
+  }
+
+  .qr-container {
+    max-width: none;
+    padding: 0;
+  }
+
+  .qr-card {
+    box-shadow: none;
+    border: none;
+    padding: 2rem;
+  }
+
+  .qr-code-wrap canvas {
+    box-shadow: none;
+  }
+}
