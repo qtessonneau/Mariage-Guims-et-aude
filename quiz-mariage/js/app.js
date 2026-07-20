@@ -132,6 +132,7 @@ const elements = {
   scoreTotal: document.getElementById("score-total"),
   resultTitle: document.getElementById("result-title"),
   resultMessage: document.getElementById("result-message"),
+  resultRankingNotice: document.getElementById("result-ranking-notice"),
   resultPlayerName: document.getElementById("result-player-name"),
   btnViewRanking: document.getElementById("btn-view-ranking"),
   btnBackHome: document.getElementById("btn-back-home"),
@@ -143,6 +144,7 @@ const elements = {
   adminParticipantCount: document.getElementById("admin-participant-count"),
   adminStatus: document.getElementById("admin-status"),
   adminLeaderboardPreview: document.getElementById("admin-leaderboard-preview"),
+  adminPreviewTitle: document.getElementById("admin-preview-title"),
   btnCloseQuiz: document.getElementById("btn-close-quiz"),
   btnReopenQuiz: document.getElementById("btn-reopen-quiz"),
   btnShowRanking: document.getElementById("btn-show-ranking"),
@@ -167,15 +169,15 @@ function init() {
   });
   elements.btnStart?.addEventListener("click", tryStartQuiz);
   elements.btnNext?.addEventListener("click", nextQuestion);
-  elements.btnViewRanking?.addEventListener("click", () => showScreen("leaderboard"));
+  elements.btnViewRanking?.addEventListener("click", () => openLeaderboard());
   elements.btnBackHome?.addEventListener("click", () => showScreen("welcome"));
   elements.btnBackFromRanking?.addEventListener("click", goBackFromRanking);
-  elements.btnViewRankingFromWelcome?.addEventListener("click", () => showScreen("leaderboard"));
+  elements.btnViewRankingFromWelcome?.addEventListener("click", () => openLeaderboard());
 
   if (isAdmin) {
     elements.btnCloseQuiz?.addEventListener("click", closeQuiz);
     elements.btnReopenQuiz?.addEventListener("click", reopenQuiz);
-    elements.btnShowRanking?.addEventListener("click", () => showScreen("leaderboard"));
+    elements.btnShowRanking?.addEventListener("click", () => openLeaderboard());
     initAdminQr();
     if (!db) {
       if (elements.btnCloseQuiz) elements.btnCloseQuiz.disabled = true;
@@ -191,6 +193,7 @@ function init() {
   }
 
   updateWelcomeState();
+  updateRankingVisibility();
 }
 
 async function initAdminQr() {
@@ -221,9 +224,17 @@ function listenToConfig() {
   unsubscribeConfig = onSnapshot(
     configRef,
     (snap) => {
+      const wasClosed = quizClosed;
       quizClosed = snap.exists() ? Boolean(snap.data().closed) : false;
       updateWelcomeState();
       updateAdminState();
+      updateRankingVisibility();
+
+      if (quizClosed && !wasClosed) {
+        revealLeaderboardToGuests();
+      } else if (!quizClosed && wasClosed && !isAdmin) {
+        showScreen("welcome");
+      }
     },
     (err) => console.error("Firestore config error:", err)
   );
@@ -236,8 +247,12 @@ function listenToScores() {
     scoresRef,
     (snap) => {
       allScores = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-      renderLeaderboard(elements.leaderboardList);
-      renderLeaderboard(elements.adminLeaderboardPreview, true);
+      if (quizClosed) {
+        renderLeaderboard(elements.leaderboardList);
+        if (isAdmin) {
+          renderLeaderboard(elements.adminLeaderboardPreview, true);
+        }
+      }
       elements.leaderboardCount.textContent = allScores.length;
       if (elements.adminParticipantCount) {
         elements.adminParticipantCount.textContent = allScores.length;
@@ -247,12 +262,48 @@ function listenToScores() {
   );
 }
 
+function updateRankingVisibility() {
+  const canSeeRanking = quizClosed;
+
+  if (elements.btnViewRanking) {
+    elements.btnViewRanking.hidden = !canSeeRanking;
+  }
+  if (elements.resultRankingNotice) {
+    elements.resultRankingNotice.hidden = canSeeRanking || isAdmin;
+  }
+  if (elements.btnShowRanking) {
+    elements.btnShowRanking.hidden = !canSeeRanking;
+  }
+  if (elements.adminPreviewTitle) {
+    elements.adminPreviewTitle.hidden = !canSeeRanking;
+  }
+  if (elements.adminLeaderboardPreview) {
+    elements.adminLeaderboardPreview.hidden = !canSeeRanking;
+    if (!canSeeRanking) {
+      elements.adminLeaderboardPreview.innerHTML = "";
+    }
+  }
+}
+
+function openLeaderboard() {
+  if (!quizClosed) return;
+  showScreen("leaderboard");
+}
+
+function revealLeaderboardToGuests() {
+  showScreen("leaderboard");
+}
+
 function updateWelcomeState() {
   if (isAdmin) return;
   const closed = quizClosed;
   if (elements.quizClosedNotice) elements.quizClosedNotice.hidden = !closed;
   if (elements.welcomeForm) elements.welcomeForm.hidden = closed;
   if (elements.btnViewRankingFromWelcome) elements.btnViewRankingFromWelcome.hidden = !closed;
+
+  if (closed && screens.welcome?.classList.contains("active")) {
+    openLeaderboard();
+  }
 }
 
 function updateAdminState() {
@@ -357,12 +408,13 @@ async function showResults() {
   elements.resultTitle.textContent = msg.title;
   elements.resultMessage.textContent = msg.message;
 
-  elements.btnViewRanking.textContent = quizClosed
-    ? "Voir le classement final"
-    : "Voir le classement en direct";
-
+  updateRankingVisibility();
   showScreen("results");
   await submitScore();
+
+  if (quizClosed) {
+    showScreen("leaderboard");
+  }
 }
 
 async function submitScore() {
@@ -443,11 +495,14 @@ function goBackFromRanking() {
 }
 
 function showScreen(name) {
+  if (name === "leaderboard" && !quizClosed) return;
+
   Object.values(screens).forEach((s) => s?.classList.remove("active"));
   screens[name]?.classList.add("active");
 
   if (name === "leaderboard") {
-    elements.leaderboardTitle.textContent = quizClosed ? "Classement final 🏆" : "Classement en direct";
+    elements.leaderboardTitle.textContent = "Classement final 🏆";
+    renderLeaderboard(elements.leaderboardList);
   }
 }
 
