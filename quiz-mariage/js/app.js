@@ -9,7 +9,6 @@ import {
   serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 import { firebaseConfig, ADMIN_CODE, isFirebaseConfigured } from "./firebase-config.js";
-import { renderQrCode, copyQuizUrl } from "./qrcode-helper.js";
 
 /* ─── Configuration du quiz ─── */
 const CONFIG = {
@@ -86,8 +85,12 @@ let unsubscribeScores = null;
 let unsubscribeConfig = null;
 
 if (isFirebaseConfigured()) {
-  const app = initializeApp(firebaseConfig);
-  db = getFirestore(app);
+  try {
+    const app = initializeApp(firebaseConfig);
+    db = getFirestore(app);
+  } catch (err) {
+    console.error("Firebase init error:", err);
+  }
 }
 
 /* ─── État ─── */
@@ -97,7 +100,11 @@ let selectedAnswer = null;
 let answered = false;
 let player = { firstName: "", lastName: "" };
 let scoreSubmitted = false;
-const isAdmin = new URLSearchParams(window.location.search).get("admin") === ADMIN_CODE;
+const adminParam = new URLSearchParams(window.location.search).get("admin")?.trim();
+const isAdmin =
+  window.QUIZ_ADMIN_MODE === true ||
+  adminParam === ADMIN_CODE ||
+  window.location.pathname.includes("admin.html");
 
 /* ─── DOM ─── */
 const screens = {
@@ -147,39 +154,40 @@ const elements = {
 };
 
 function init() {
-  elements.coupleNames.textContent = CONFIG.coupleNames;
-  elements.scoreTotal.textContent = QUESTIONS.length;
+  if (isAdmin) {
+    showScreen("admin");
+  }
 
-  elements.welcomeForm.addEventListener("submit", (e) => {
+  elements.coupleNames && (elements.coupleNames.textContent = CONFIG.coupleNames);
+  elements.scoreTotal && (elements.scoreTotal.textContent = QUESTIONS.length);
+
+  elements.welcomeForm?.addEventListener("submit", (e) => {
     e.preventDefault();
     tryStartQuiz();
   });
-  elements.btnNext.addEventListener("click", nextQuestion);
-  elements.btnViewRanking.addEventListener("click", () => showScreen("leaderboard"));
-  elements.btnBackHome.addEventListener("click", () => showScreen("welcome"));
-  elements.btnBackFromRanking.addEventListener("click", goBackFromRanking);
-  elements.btnViewRankingFromWelcome.addEventListener("click", () => showScreen("leaderboard"));
+  elements.btnStart?.addEventListener("click", tryStartQuiz);
+  elements.btnNext?.addEventListener("click", nextQuestion);
+  elements.btnViewRanking?.addEventListener("click", () => showScreen("leaderboard"));
+  elements.btnBackHome?.addEventListener("click", () => showScreen("welcome"));
+  elements.btnBackFromRanking?.addEventListener("click", goBackFromRanking);
+  elements.btnViewRankingFromWelcome?.addEventListener("click", () => showScreen("leaderboard"));
 
   if (isAdmin) {
-    elements.btnCloseQuiz.addEventListener("click", closeQuiz);
-    elements.btnReopenQuiz.addEventListener("click", reopenQuiz);
-    elements.btnShowRanking.addEventListener("click", () => showScreen("leaderboard"));
+    elements.btnCloseQuiz?.addEventListener("click", closeQuiz);
+    elements.btnReopenQuiz?.addEventListener("click", reopenQuiz);
+    elements.btnShowRanking?.addEventListener("click", () => showScreen("leaderboard"));
+    initAdminQr();
+    if (!db) {
+      if (elements.btnCloseQuiz) elements.btnCloseQuiz.disabled = true;
+      if (elements.btnReopenQuiz) elements.btnReopenQuiz.disabled = true;
+    }
   }
 
   if (!isFirebaseConfigured()) {
-    elements.firebaseWarning.hidden = false;
+    if (elements.firebaseWarning) elements.firebaseWarning.hidden = false;
   } else {
     listenToConfig();
     listenToScores();
-  }
-
-  if (isAdmin) {
-    showScreen("admin");
-    initAdminQr();
-    if (!db) {
-      elements.btnCloseQuiz.disabled = true;
-      elements.btnReopenQuiz.disabled = true;
-    }
   }
 
   updateWelcomeState();
@@ -188,45 +196,63 @@ function init() {
 async function initAdminQr() {
   if (!elements.adminQrCode) return;
 
-  const url = await renderQrCode(elements.adminQrCode, 180);
-  elements.adminQuizUrl.textContent = url;
+  try {
+    const { renderQrCode, copyQuizUrl } = await import("./qrcode-helper.js");
+    const url = await renderQrCode(elements.adminQrCode, 180);
+    elements.adminQuizUrl.textContent = url;
 
-  elements.btnCopyQuizUrl?.addEventListener("click", async () => {
-    await copyQuizUrl();
-    elements.adminCopyFeedback.hidden = false;
-    setTimeout(() => {
-      elements.adminCopyFeedback.hidden = true;
-    }, 2000);
-  });
+    elements.btnCopyQuizUrl?.addEventListener("click", async () => {
+      await copyQuizUrl();
+      elements.adminCopyFeedback.hidden = false;
+      setTimeout(() => {
+        elements.adminCopyFeedback.hidden = true;
+      }, 2000);
+    });
+  } catch (err) {
+    console.error("QR code admin indisponible:", err);
+    elements.adminQrCode.innerHTML =
+      '<p class="empty-ranking">QR code indisponible — utilisez qr.html</p>';
+  }
 }
 
 function listenToConfig() {
+  if (!db) return;
   const configRef = doc(db, "config", "quiz");
-  unsubscribeConfig = onSnapshot(configRef, (snap) => {
-    quizClosed = snap.exists() ? Boolean(snap.data().closed) : false;
-    updateWelcomeState();
-    updateAdminState();
-  });
+  unsubscribeConfig = onSnapshot(
+    configRef,
+    (snap) => {
+      quizClosed = snap.exists() ? Boolean(snap.data().closed) : false;
+      updateWelcomeState();
+      updateAdminState();
+    },
+    (err) => console.error("Firestore config error:", err)
+  );
 }
 
 function listenToScores() {
+  if (!db) return;
   const scoresRef = collection(db, "scores");
-  unsubscribeScores = onSnapshot(scoresRef, (snap) => {
-    allScores = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-    renderLeaderboard(elements.leaderboardList);
-    renderLeaderboard(elements.adminLeaderboardPreview, true);
-    elements.leaderboardCount.textContent = allScores.length;
-    if (elements.adminParticipantCount) {
-      elements.adminParticipantCount.textContent = allScores.length;
-    }
-  });
+  unsubscribeScores = onSnapshot(
+    scoresRef,
+    (snap) => {
+      allScores = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      renderLeaderboard(elements.leaderboardList);
+      renderLeaderboard(elements.adminLeaderboardPreview, true);
+      elements.leaderboardCount.textContent = allScores.length;
+      if (elements.adminParticipantCount) {
+        elements.adminParticipantCount.textContent = allScores.length;
+      }
+    },
+    (err) => console.error("Firestore scores error:", err)
+  );
 }
 
 function updateWelcomeState() {
+  if (isAdmin) return;
   const closed = quizClosed;
-  elements.quizClosedNotice.hidden = !closed;
-  elements.welcomeForm.hidden = closed;
-  elements.btnViewRankingFromWelcome.hidden = !closed;
+  if (elements.quizClosedNotice) elements.quizClosedNotice.hidden = !closed;
+  if (elements.welcomeForm) elements.welcomeForm.hidden = closed;
+  if (elements.btnViewRankingFromWelcome) elements.btnViewRankingFromWelcome.hidden = !closed;
 }
 
 function updateAdminState() {
@@ -417,12 +443,16 @@ function goBackFromRanking() {
 }
 
 function showScreen(name) {
-  Object.values(screens).forEach((s) => s.classList.remove("active"));
-  screens[name].classList.add("active");
+  Object.values(screens).forEach((s) => s?.classList.remove("active"));
+  screens[name]?.classList.add("active");
 
   if (name === "leaderboard") {
     elements.leaderboardTitle.textContent = quizClosed ? "Classement final 🏆" : "Classement en direct";
   }
 }
 
-init();
+try {
+  init();
+} catch (err) {
+  console.error("Erreur initialisation quiz:", err);
+}
