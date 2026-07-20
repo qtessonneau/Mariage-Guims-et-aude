@@ -5,7 +5,7 @@
  *
  * Laisser vide = détection automatique depuis l'adresse actuelle
  */
-export const SITE_URL = "https://qtessonneau.github.io/Mariage-Guims-et-aude";
+export const SITE_URL = "https://qtessonneau.github.io/Mariage-Guims-et-aude/quiz-mariage";
 
 export const COUPLE_NAMES = "Aude & Guims";
 
