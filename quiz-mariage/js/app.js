@@ -368,7 +368,6 @@ function selectAnswer(index) {
 
   buttons.forEach((btn, i) => {
     btn.disabled = true;
-    if (i === index && index !== correctIndex) btn.classList.add("incorrect");
     if (i === index) btn.classList.add("selected");
   });
 
