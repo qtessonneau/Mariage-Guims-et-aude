@@ -134,20 +134,17 @@ const elements = {
   resultMessage: document.getElementById("result-message"),
   resultRankingNotice: document.getElementById("result-ranking-notice"),
   resultPlayerName: document.getElementById("result-player-name"),
-  btnViewRanking: document.getElementById("btn-view-ranking"),
   btnBackHome: document.getElementById("btn-back-home"),
   leaderboardList: document.getElementById("leaderboard-list"),
   leaderboardCount: document.getElementById("leaderboard-count"),
   leaderboardTitle: document.getElementById("leaderboard-title"),
   btnBackFromRanking: document.getElementById("btn-back-from-ranking"),
-  btnViewRankingFromWelcome: document.getElementById("btn-view-ranking-welcome"),
   adminParticipantCount: document.getElementById("admin-participant-count"),
   adminStatus: document.getElementById("admin-status"),
   adminLeaderboardPreview: document.getElementById("admin-leaderboard-preview"),
   adminPreviewTitle: document.getElementById("admin-preview-title"),
   btnCloseQuiz: document.getElementById("btn-close-quiz"),
   btnReopenQuiz: document.getElementById("btn-reopen-quiz"),
-  btnShowRanking: document.getElementById("btn-show-ranking"),
   firebaseWarning: document.getElementById("firebase-warning"),
   adminQrCode: document.getElementById("admin-qr-code"),
   adminQuizUrl: document.getElementById("admin-quiz-url"),
@@ -169,15 +166,12 @@ function init() {
   });
   elements.btnStart?.addEventListener("click", tryStartQuiz);
   elements.btnNext?.addEventListener("click", nextQuestion);
-  elements.btnViewRanking?.addEventListener("click", () => openLeaderboard());
   elements.btnBackHome?.addEventListener("click", () => showScreen("welcome"));
   elements.btnBackFromRanking?.addEventListener("click", goBackFromRanking);
-  elements.btnViewRankingFromWelcome?.addEventListener("click", () => openLeaderboard());
 
   if (isAdmin) {
     elements.btnCloseQuiz?.addEventListener("click", closeQuiz);
     elements.btnReopenQuiz?.addEventListener("click", reopenQuiz);
-    elements.btnShowRanking?.addEventListener("click", () => openLeaderboard());
     initAdminQr();
     if (!db) {
       if (elements.btnCloseQuiz) elements.btnCloseQuiz.disabled = true;
@@ -265,14 +259,8 @@ function listenToScores() {
 function updateRankingVisibility() {
   const canSeeRanking = quizClosed;
 
-  if (elements.btnViewRanking) {
-    elements.btnViewRanking.hidden = !canSeeRanking;
-  }
   if (elements.resultRankingNotice) {
     elements.resultRankingNotice.hidden = canSeeRanking || isAdmin;
-  }
-  if (elements.btnShowRanking) {
-    elements.btnShowRanking.hidden = !canSeeRanking;
   }
   if (elements.adminPreviewTitle) {
     elements.adminPreviewTitle.hidden = !canSeeRanking;
@@ -299,7 +287,6 @@ function updateWelcomeState() {
   const closed = quizClosed;
   if (elements.quizClosedNotice) elements.quizClosedNotice.hidden = !closed;
   if (elements.welcomeForm) elements.welcomeForm.hidden = closed;
-  if (elements.btnViewRankingFromWelcome) elements.btnViewRankingFromWelcome.hidden = !closed;
 
   if (closed && screens.welcome?.classList.contains("active")) {
     openLeaderboard();
