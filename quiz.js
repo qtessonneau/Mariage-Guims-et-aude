@@ -4,18 +4,18 @@
  */
 const CONFIG = {
   // Noms des mariés affichés sur la page d'accueil
-  coupleNames: "Marie & Pierre",
+  coupleNames: "Aude & Guims",
 
   // Prénoms utilisés dans les questions (mariée / marié)
-  bride: "Marie",
-  groom: "Pierre",
+  bride: "Aude",
+  groom: "Guims",
 };
 
 const QUESTIONS = [
-  {
+ {
     question: `Où ${CONFIG.bride} et ${CONFIG.groom} se sont-ils rencontrés pour la première fois ?`,
-    answers: ["À Paris", "En vacances à la montagne", "Via des amis communs", "Au travail"],
-    correct: 2,
+    answers: ["À Paris", "En vacances à la montagne", "Via des amis communs", "Au BTS"],
+    correct: 4,
   },
   {
     question: `Quel est le plat préféré de ${CONFIG.groom} ?`,
@@ -23,52 +23,52 @@ const QUESTIONS = [
     correct: 0,
   },
   {
-    question: `Quelle chanson ${CONFIG.bride} écoute en boucle ?`,
-    answers: ["Du jazz", "De la pop française", "Du rock", "De la musique classique"],
-    correct: 1,
+    question: `Quel pays ${CONFIG.bride} a visité ?`,
+    answers: ["Brésil", "Kenya", "Sri-lanka", "Albanie"],
+    correct: 3,
   },
   {
-    question: "En quelle année le couple s'est-il mis ensemble ?",
-    answers: ["2018", "2019", "2020", "2021"],
-    correct: 1,
-  },
-  {
-    question: `Quel est le hobby secret de ${CONFIG.bride} ?`,
-    answers: ["La peinture", "Le yoga", "Les jeux vidéo", "La cuisine"],
+    question: "Combien d'invité sommes nous aujourd'hui ?",
+    answers: ["60", "64", "66", "70"],
     correct: 2,
   },
-  {
+   {
     question: "Où ont-ils fait leur demande en mariage ?",
     answers: ["Au restaurant", "En voyage", "Chez eux", "Dans un parc"],
+    correct: 2,
+  },
+   {
+    question: `Où ${CONFIG.groom} a t'il vu Iron Maiden ?`,
+    answers: ["Download Festival", "Motocultor", "Resurrection fest", "Coachella"],
     correct: 1,
   },
   {
-    question: `Quel animal ${CONFIG.groom} rêverait-il d'adopter ?`,
-    answers: ["Un chien", "Un chat", "Un lapin", "Un perroquet"],
-    correct: 0,
+    question: `Quel est la couleur de la robe blanche de ${CONFIG.bride} ?`,
+    answers: ["Blanc", "Ivoire", "Blush", "Champagne"],
+    correct: 1,
   },
   {
-    question: "Quelle est la destination de leur lune de miel ?",
-    answers: ["La Grèce", "Le Japon", "L'Italie", "La Thaïlande"],
-    correct: 2,
+    question: "Qui risque de finir la soirée le plus pompette ?",
+    answers: ["Aude", "Guims", "Les témoins", "Tout le monde"],
+    correct: 4,
   },
   {
     question: `Qui dit le plus souvent « Je t'aime » ?`,
     answers: [CONFIG.bride, CONFIG.groom, "Personne, c'est implicite", "Les deux autant l'un que l'autre"],
-    correct: 3,
+    correct: 0,
   },
   {
     question: "Quel est le surnom que se donnent les mariés ?",
-    answers: ["Mon cœur", "Mon chat", "Mon trésor", "Mon amour"],
-    correct: 0,
+    answers: ["Mon cœur", "Mon chat", "Mon Tyrannosaure", "Mon amour"],
+    correct: 1,
   },
 ];
 
 const MESSAGES = [
-  { min: 0, max: 3, title: "Il faut mieux les connaître !", message: "Pas de panique — le mariage sera l'occasion parfaite d'apprendre à les connaître encore mieux !" },
-  { min: 4, max: 6, title: "Pas mal !", message: "Vous connaissez les mariés, mais il reste encore quelques secrets à découvrir…" },
-  { min: 7, max: 8, title: "Très bien !", message: "Vous êtes clairement proche du couple. Les mariés peuvent compter sur vous !" },
-  { min: 9, max: 10, title: "Expert du couple !", message: "Impressionnant ! Vous connaissez les mariés mieux qu'ils ne se connaissent eux-mêmes. 🎉" },
+  { min: 0, max: 3, title: "Il faut mieux les connaître !", message: "Pas de panique — on est tous venu pour la bouffe en vrai" },
+  { min: 4, max: 6, title: "Pas mal !", message: "Vous connaissez les mariés ! Il reste encore quelques secrets à découvrir.. Apéro ?" },
+  { min: 7, max: 8, title: "Très bien !", message: "Vous êtes malheureusement proche du couple, force à vous." },
+  { min: 9, max: 10, title: "Expert du couple !", message: "Lèche botte va !." },
 ];
 
 // Éléments du DOM
