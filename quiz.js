@@ -11,6 +11,8 @@ const CONFIG = {
   groom: "Guims",
 };
 
+// correct : numéro de la bonne réponse de 1 à 4
+// (1 = 1re réponse, 2 = 2e, 3 = 3e, 4 = 4e)
 const QUESTIONS = [
  {
     question: `Où ${CONFIG.bride} et ${CONFIG.groom} se sont-ils rencontrés pour la première fois ?`,
@@ -154,14 +156,16 @@ function selectAnswer(index, clickedBtn) {
   const q = QUESTIONS[currentQuestion];
   const buttons = elements.answersList.querySelectorAll(".answer-btn");
 
+  const correctIndex = q.correct - 1;
+
   buttons.forEach((btn, i) => {
     btn.disabled = true;
-    if (i === q.correct) btn.classList.add("correct");
-    if (i === index && index !== q.correct) btn.classList.add("incorrect");
+    if (i === correctIndex) btn.classList.add("correct");
+    if (i === index && index !== correctIndex) btn.classList.add("incorrect");
     if (i === index) btn.classList.add("selected");
   });
 
-  if (index === q.correct) score++;
+  if (index === correctIndex) score++;
 
   elements.btnNext.disabled = false;
 }
