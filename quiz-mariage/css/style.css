@@ -247,16 +247,6 @@ h1 {
   background: rgba(139, 111, 92, 0.08);
 }
 
-.answer-btn.correct {
-  border-color: var(--color-success);
-  background: rgba(90, 122, 90, 0.12);
-}
-
-.answer-btn.incorrect {
-  border-color: var(--color-error);
-  background: rgba(166, 93, 93, 0.1);
-}
-
 .answer-btn:disabled {
   cursor: default;
 }
