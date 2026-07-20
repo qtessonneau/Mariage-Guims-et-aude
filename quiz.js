@@ -15,7 +15,7 @@ const QUESTIONS = [
  {
     question: `Où ${CONFIG.bride} et ${CONFIG.groom} se sont-ils rencontrés pour la première fois ?`,
     answers: ["À Paris", "En vacances à la montagne", "Via des amis communs", "Au BTS"],
-    correct: 4,
+    correct: 3,
   },
   {
     question: `Quel est le plat préféré de ${CONFIG.groom} ?`,
@@ -25,42 +25,42 @@ const QUESTIONS = [
   {
     question: `Quel pays ${CONFIG.bride} a visité ?`,
     answers: ["Brésil", "Kenya", "Sri-lanka", "Albanie"],
-    correct: 3,
+    correct: 2,
   },
   {
     question: "Combien d'invité sommes nous aujourd'hui ?",
     answers: ["60", "64", "66", "70"],
-    correct: 2,
+    correct: 1,
   },
    {
     question: "Où ont-ils fait leur demande en mariage ?",
     answers: ["Au restaurant", "En voyage", "Chez eux", "Dans un parc"],
-    correct: 2,
+    correct: 1,
   },
    {
     question: `Où ${CONFIG.groom} a t'il vu Iron Maiden ?`,
     answers: ["Download Festival", "Motocultor", "Resurrection fest", "Coachella"],
-    correct: 1,
+    correct: 0,
   },
   {
     question: `Quel est la couleur de la robe blanche de ${CONFIG.bride} ?`,
     answers: ["Blanc", "Ivoire", "Blush", "Champagne"],
-    correct: 1,
+    correct: 0,
   },
   {
     question: "Qui risque de finir la soirée le plus pompette ?",
     answers: ["Aude", "Guims", "Les témoins", "Tout le monde"],
-    correct: 4,
+    correct: 3,
   },
   {
     question: `Qui dit le plus souvent « Je t'aime » ?`,
     answers: [CONFIG.bride, CONFIG.groom, "Personne, c'est implicite", "Les deux autant l'un que l'autre"],
-    correct: 0,
+    correct: 3,
   },
   {
     question: "Quel est le surnom que se donnent les mariés ?",
     answers: ["Mon cœur", "Mon chat", "Mon Tyrannosaure", "Mon amour"],
-    correct: 1,
+    correct: 0,
   },
 ];
 
