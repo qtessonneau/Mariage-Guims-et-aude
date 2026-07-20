@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Quiz de mariage — Testez vos connaissances sur les mariés !">
+  <title>Quiz de Mariage 💍</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/qr.css">
+</head>
+<body>
+  <div class="petals" aria-hidden="true"></div>
+
+  <div id="firebase-warning" class="banner-warning" hidden>
+    ⚠️ Firebase n'est pas configuré — le classement ne fonctionnera pas. Voir <code>js/firebase-config.js</code>
+  </div>
+
+  <main class="container">
+    <!-- Accueil + inscription -->
+    <section id="screen-welcome" class="screen active">
+      <div class="card welcome-card">
+        <p class="eyebrow">Bienvenue au</p>
+        <h1>Quiz de Mariage</h1>
+        <p class="couple-names" id="couple-names">Aude &amp; Guims</p>
+        <p class="subtitle">
+          Combien connaissez-vous les mariés ?<br>
+          Inscrivez-vous et tentez votre chance !
+        </p>
+
+        <div id="quiz-closed-notice" class="closed-notice" hidden>
+          <p>🎉 Le quiz est terminé !</p>
+          <p class="closed-subtitle">Découvrez le classement final ci-dessous.</p>
+        </div>
+
+        <form id="welcome-form" class="player-form" novalidate>
+          <div class="form-row">
+            <label for="first-name">Prénom</label>
+            <input type="text" id="first-name" name="firstName" placeholder="Votre prénom" autocomplete="given-name" required>
+          </div>
+          <div class="form-row">
+            <label for="last-name">Nom</label>
+            <input type="text" id="last-name" name="lastName" placeholder="Votre nom" autocomplete="family-name" required>
+          </div>
+          <p id="form-error" class="form-error" hidden></p>
+          <button type="submit" class="btn btn-primary" id="btn-start">
+            Commencer le quiz
+          </button>
+        </form>
+
+        <button type="button" class="btn btn-secondary btn-ranking" id="btn-view-ranking-welcome" hidden>
+          Voir le classement final
+        </button>
+      </div>
+    </section>
+
+    <!-- Quiz -->
+    <section id="screen-quiz" class="screen">
+      <div class="card quiz-card">
+        <div class="quiz-header">
+          <span class="question-counter" id="question-counter">Question 1 / 10</span>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+        </div>
+
+        <h2 class="question-text" id="question-text"></h2>
+
+        <ul class="answers" id="answers-list" role="list"></ul>
+
+        <button type="button" class="btn btn-primary btn-next" id="btn-next" disabled>
+          Question suivante
+        </button>
+      </div>
+    </section>
+
+    <!-- Résultats personnels -->
+    <section id="screen-results" class="screen">
+      <div class="card results-card">
+        <p class="eyebrow">Résultat</p>
+        <p class="result-player" id="result-player-name"></p>
+        <h1 id="result-title">Bravo !</h1>
+        <div class="score-circle">
+          <span class="score-value" id="score-value">0</span>
+          <span class="score-total">/ <span id="score-total">10</span></span>
+        </div>
+        <p class="result-message" id="result-message"></p>
+        <div class="results-actions">
+          <button type="button" class="btn btn-primary" id="btn-view-ranking">
+            Voir le classement en direct
+          </button>
+          <button type="button" class="btn btn-secondary" id="btn-back-home">
+            Retour à l'accueil
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Classement -->
+    <section id="screen-leaderboard" class="screen">
+      <div class="card leaderboard-card">
+        <p class="eyebrow">Podium</p>
+        <h1 id="leaderboard-title">Classement en direct</h1>
+        <p class="leaderboard-meta"><span id="leaderboard-count">0</span> participant(s)</p>
+        <div id="leaderboard-list" class="ranking-list"></div>
+        <button type="button" class="btn btn-secondary" id="btn-back-from-ranking">
+          Retour
+        </button>
+      </div>
+    </section>
+
+    <!-- Panneau admin (URL : ?admin=VOTRE_CODE) -->
+    <section id="screen-admin" class="screen">
+      <div class="card admin-card">
+        <p class="eyebrow">Administration</p>
+        <h1>Panneau mariés</h1>
+        <p class="admin-meta">
+          Statut : <strong id="admin-status" class="admin-status open">Quiz en cours</strong>
+        </p>
+        <p class="admin-meta"><span id="admin-participant-count">0</span> participant(s)</p>
+
+        <div class="qr-admin-section">
+          <h2 class="admin-preview-title">QR code invités</h2>
+          <p class="admin-meta">Affichez ou imprimez ce QR code — les invités scannent pour accéder au quiz.</p>
+          <div id="admin-qr-code" class="qr-admin-preview"></div>
+          <p class="qr-admin-url" id="admin-quiz-url"></p>
+          <div class="qr-admin-actions">
+            <a href="qr.html" target="_blank" class="btn btn-primary">Ouvrir page QR code (grand format)</a>
+            <button type="button" class="btn btn-secondary" id="btn-copy-quiz-url">Copier le lien du quiz</button>
+          </div>
+          <p class="qr-copy-feedback" id="admin-copy-feedback" hidden>Lien copié !</p>
+        </div>
+
+        <div class="admin-actions">
+          <button type="button" class="btn btn-primary" id="btn-close-quiz">
+            Clore le quiz et afficher le classement
+          </button>
+          <button type="button" class="btn btn-secondary" id="btn-reopen-quiz" hidden>
+            Rouvrir le quiz
+          </button>
+          <button type="button" class="btn btn-secondary" id="btn-show-ranking">
+            Voir le classement
+          </button>
+        </div>
+
+        <h2 class="admin-preview-title">Aperçu du classement</h2>
+        <div id="admin-leaderboard-preview" class="ranking-list ranking-list-compact"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Fait avec ♥ pour le grand jour</p>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
