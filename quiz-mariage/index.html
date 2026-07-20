@@ -45,7 +45,7 @@
             <input type="text" id="last-name" name="lastName" placeholder="Votre nom" autocomplete="family-name" required>
           </div>
           <p id="form-error" class="form-error" hidden></p>
-          <button type="submit" class="btn btn-primary" id="btn-start">
+          <button type="button" class="btn btn-primary" id="btn-start">
             Commencer le quiz
           </button>
         </form>
@@ -87,9 +87,12 @@
           <span class="score-total">/ <span id="score-total">10</span></span>
         </div>
         <p class="result-message" id="result-message"></p>
+        <p class="result-ranking-notice" id="result-ranking-notice" hidden>
+          Le classement sera dévoilé quand les mariés clôtureront le quiz ! 🎉
+        </p>
         <div class="results-actions">
-          <button type="button" class="btn btn-primary" id="btn-view-ranking">
-            Voir le classement en direct
+          <button type="button" class="btn btn-primary" id="btn-view-ranking" hidden>
+            Voir le classement final
           </button>
           <button type="button" class="btn btn-secondary" id="btn-back-home">
             Retour à l'accueil
@@ -140,13 +143,13 @@
           <button type="button" class="btn btn-secondary" id="btn-reopen-quiz" hidden>
             Rouvrir le quiz
           </button>
-          <button type="button" class="btn btn-secondary" id="btn-show-ranking">
-            Voir le classement
+          <button type="button" class="btn btn-secondary" id="btn-show-ranking" hidden>
+            Voir le classement final
           </button>
         </div>
 
-        <h2 class="admin-preview-title">Aperçu du classement</h2>
-        <div id="admin-leaderboard-preview" class="ranking-list ranking-list-compact"></div>
+        <h2 class="admin-preview-title" id="admin-preview-title" hidden>Aperçu du classement</h2>
+        <div id="admin-leaderboard-preview" class="ranking-list ranking-list-compact" hidden></div>
       </div>
     </section>
   </main>
