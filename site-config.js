@@ -11,7 +11,7 @@ export const COUPLE_NAMES = "Aude & Guims";
 
 /** Retourne l'URL du quiz pointée par le QR code */
 export function getQuizUrl() {
-  if (SITE_URL && !SITE_URL.includes("qtessonneau")) {
+  if (SITE_URL && !SITE_URL.includes("VOTRE-PSEUDO")) {
     return SITE_URL.replace(/\/$/, "") + "/";
   }
 
