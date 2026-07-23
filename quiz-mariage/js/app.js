@@ -18,14 +18,14 @@ const CONFIG = {
 };
 
 const QUESTIONS = [
-  {
+ {
     question: `Où ${CONFIG.bride} et ${CONFIG.groom} se sont-ils rencontrés pour la première fois ?`,
     answers: ["À Paris", "En vacances à la montagne", "Via des amis communs", "Au BTS"],
     correct: 4,
   },
   {
-    question: `Quel est le plat préféré de ${CONFIG.groom} ?`,
-    answers: ["Les pâtes carbonara", "Le burger", "La raclette", "Les sushis"],
+    question: `Quel est la date de naissance du ${CONFIG.groom} ?`,
+    answers: ["11 Août", "30 Février", "15 Juillet", "3 Septembre"],
     correct: 1,
   },
   {
@@ -35,15 +35,15 @@ const QUESTIONS = [
   },
   {
     question: "Combien d'invité sommes nous aujourd'hui ?",
-    answers: ["60", "64", "66", "70"],
+    answers: ["51", "64", "70", "82"],
     correct: 2,
   },
-  {
-    question: "Où ont-ils fait leur demande en mariage ?",
+   {
+    question: "Où la demande en mariage a eu lieu ?",
     answers: ["Au restaurant", "En voyage", "Chez eux", "Dans un parc"],
     correct: 2,
   },
-  {
+   {
     question: `Où ${CONFIG.groom} a t'il vu Iron Maiden ?`,
     answers: ["Download Festival", "Motocultor", "Resurrection fest", "Coachella"],
     correct: 1,
@@ -60,14 +60,72 @@ const QUESTIONS = [
   },
   {
     question: `Qui dit le plus souvent « Je t'aime » ?`,
-    answers: [CONFIG.bride, CONFIG.groom, "Personne, c'est implicite", "Les deux autant l'un que l'autre"],
+    answers: [CONFIG.bride, CONFIG.groom, "Lara Fabian", "Les deux autant l'un que l'autre"],
     correct: 4,
   },
   {
-    question: "Quel est le surnom que se donnent les mariés ?",
+    question: `Quel est le surnom que se donnent les mariés ?`,
     answers: ["Mon cœur", "Mon chat", "Mon Tyrannosaure", "Mon amour"],
-    correct: 1,
+    correct: 2,
   },
+  {
+    question: `Avec qui ${CONFIG.groom} a t'il été en coloc ?`,
+    answers: ["Tom et Quentin", "Baptiste et Romain", "Thomas et Chris", "Tristan et Maxime"],
+    correct: 3,
+  },
+  {
+    question: `Quel animal a vécu (ou va vivre) avec les mariés ?`,
+    answers: ["Basile le renard empaillé", "Mr Dupont le chat", "Edwige la chouette empaillée", "Les trois"],
+    correct: [1,2],
+  },
+  {
+    question: `Que veux dire BAM ?`,
+    answers : ["Be Aware of Music", "Bonobo in Mulhouse","Boite À Musique", " Banjo Accordéon et Mandoline"],
+    correct: 3,
+  },
+  {
+    question: `Quelle vidéo de Bien-être Simple ${CONFIG.bride} a présenté ?`,
+    answers : ["J'ai échappé à une secte", "Les secrets de Sharon", "La santé mentale en entreprise", "Les hémorroïdes, ce fléau"],
+    correct: 2,
+  },
+  {
+    question: `A quelle course a participé ${Config.groom} ?`,
+    answers : [" 10km du Beaujolais", "Semi-marathon de Paris", "Marathon de Paris", "Course du nouvel an 2022"],
+    correct: 2,
+  },
+  {
+    question: ` Où est-ce que le magnifique couple formé par ${config.groom} et ${config.bride} n'a t'il pas vécu ?`,
+    answers : ["Paris", "Biarritz","Canada","Valencia"],
+    correct: 2,
+  },
+  {
+    question: ` Quel est le deuxième prénom de ${config.bride} ?`,
+    answers : ["Marie","Camille","Maïté","Emaztegaia"],
+    correct: 3,
+  },
+  {
+    question: `Quel sport ${config.bride} n'a pas pratiqué ?`,
+    answers : ["Voile","Ski","Equitation","Judo"],
+    correct: 4,
+  },
+  {
+    question: `Comment s'appelle le lieu du mariage ?`,
+    answers : ["Domaine Santa Maria", "Domaine de Larbéou", "Domaine Etxezahar", "J'avoue j'ai pas regardé le faire-part"],
+    correct: 2,
+  },
+  {
+    question: `Quel est l'agrûme emblême du couple ?`,
+    answers: ["L'orange", "Le pomello", "Le pamplemousse", "Le citron"],
+    correct: 4,
+  },
+];
+
+const MESSAGES = [
+  { min: 0, max: 5, title: "Il faut mieux les connaître !", message: "Pas de panique — on est tous venu pour la bouffe en vrai" },
+  { min: 6, max: 10, title: "Pas mal !", message: "Le Patxaran va vous aider à récolter plus d'informations." },
+  { min: 11, max: 15, title: "Tout à fait respectable", message: "Vous connaissez les mariés ! Il reste encore quelques secrets à découvrir.. Apéro ?" },
+  { min: 16, max: 18, title: "Très bien !", message: "Vous êtes malheureusement proche du couple, force à vous." },
+  { min: 19, max: 20, title: "Expert du couple !", message: "Lèche botte va !."
 ];
 
 const MESSAGES = [
