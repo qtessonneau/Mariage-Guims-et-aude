@@ -52,7 +52,7 @@ const QUESTIONS = [
     correct: 1,
   },
   {
-    question: `Quel est la couleur de la robe blanche de ${CONFIG.bride} ?`,
+    question: `Quel est la couleur de la robe de ${CONFIG.bride} ?`,
     answers: ["Blanc", "Ivoire", "Blush", "Champagne"],
     correct: 1,
   },
