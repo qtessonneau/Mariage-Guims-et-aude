@@ -89,22 +89,22 @@ const QUESTIONS = [
     correct: 2,
   },
   {
-    question: `A quelle course a participé ${Config.groom} ?`,
+    question: `A quelle course a participé ${CONFIG.groom} ?`,
     answers : [" 10km du Beaujolais", "Semi-marathon de Paris", "Marathon de Paris", "Course du nouvel an 2022"],
     correct: 2,
   },
   {
-    question: ` Où est-ce que le magnifique couple formé par ${config.groom} et ${config.bride} n'a t'il pas vécu ?`,
+    question: ` Où est-ce que le magnifique couple formé par ${CONFIG.groom} et ${CONFIG.bride} n'a t'il pas vécu ?`,
     answers : ["Paris", "Biarritz","Canada","Valencia"],
     correct: 2,
   },
   {
-    question: ` Quel est le deuxième prénom de ${config.bride} ?`,
+    question: ` Quel est le deuxième prénom de ${CONFIG.bride} ?`,
     answers : ["Marie","Camille","Maïté","Emaztegaia"],
     correct: 3,
   },
   {
-    question: `Quel sport ${config.bride} n'a pas pratiqué ?`,
+    question: `Quel sport ${CONFIG.bride} n'a pas pratiqué ?`,
     answers : ["Voile","Ski","Equitation","Judo"],
     correct: 4,
   },
@@ -125,14 +125,7 @@ const MESSAGES = [
   { min: 6, max: 10, title: "Pas mal !", message: "Le Patxaran va vous aider à récolter plus d'informations." },
   { min: 11, max: 15, title: "Tout à fait respectable", message: "Vous connaissez les mariés ! Il reste encore quelques secrets à découvrir.. Apéro ?" },
   { min: 16, max: 18, title: "Très bien !", message: "Vous êtes malheureusement proche du couple, force à vous." },
-  { min: 19, max: 20, title: "Expert du couple !", message: "Lèche botte va !."
-];
-
-const MESSAGES = [
-  { min: 0, max: 3, title: "Il faut mieux les connaître !", message: "Pas de panique — on est tous venu pour la bouffe en vrai" },
-  { min: 4, max: 6, title: "Pas mal !", message: "Vous connaissez les mariés ! Il reste encore quelques secrets à découvrir.. Apéro ?" },
-  { min: 7, max: 8, title: "Très bien !", message: "Vous êtes malheureusement proche du couple, force à vous." },
-  { min: 9, max: 10, title: "Expert du couple !", message: "Lèche botte va !." },
+  { min: 19, max: 20, title: "Expert du couple !", message: "Lèche botte va !."},
 ];
 
 /* ─── Firebase ─── */
