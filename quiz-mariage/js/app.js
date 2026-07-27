@@ -27,7 +27,7 @@ const QUESTIONS = [
     correct: 4,
   },
   {
-    question: `Quel est la date de naissance de ${CONFIG.groom} ?`,
+    question: `Quelle est la date de naissance de ${CONFIG.groom} ?`,
     answers: ["11 Août", "30 Février", "15 Juillet", "3 Septembre"],
     correct: 1,
   },
@@ -37,22 +37,22 @@ const QUESTIONS = [
     correct: 3,
   },
   {
-    question: "Combien d'invité sommes nous aujourd'hui ?",
+    question: "Combien d'invités sommes nous aujourd'hui ?",
     answers: ["51", "64", "70", "82"],
     correct: 2,
   },
   {
-    question: "Où la demande en mariage a eu lieu ?",
+    question: "Où la demande en mariage a-t-elle eu lieu ?",
     answers: ["Au restaurant", "En voyage", "Chez eux", "Dans un parc"],
     correct: 2,
   },
   {
-    question: `Où ${CONFIG.groom} a t'il vu Iron Maiden ?`,
+    question: `Où ${CONFIG.groom} a-t-il vu Iron Maiden ?`,
     answers: ["Download Festival", "Motocultor", "Resurrection fest", "Coachella"],
     correct: 1,
   },
   {
-    question: `Quel est la couleur de la robe de ${CONFIG.bride} ?`,
+    question: `Quelle est la couleur de la robe de ${CONFIG.bride} ?`,
     answers: ["Blanc", "Ivoire", "Blush", "Champagne"],
     correct: 1,
   },
@@ -72,7 +72,7 @@ const QUESTIONS = [
     correct: 2,
   },
   {
-    question: `Avec qui ${CONFIG.groom} a t'il été en coloc ?`,
+    question: `Avec qui ${CONFIG.groom} a-t-il été en coloc ?`,
     answers: ["Tom et Quentin", "Baptiste et Romain", "Thomas et Chris", "Tristan et Maxime"],
     correct: 3,
   },
@@ -92,12 +92,12 @@ const QUESTIONS = [
     correct: 2,
   },
   {
-    question: `A quelle course a participé ${CONFIG.groom} ?`,
-    answers: ["10km du Beaujolais", "Semi-marathon de Paris", "Marathon de Paris", "Course du nouvel an 2022"],
+    question: `À quelle course a participé ${CONFIG.groom} ?`,
+    answers: ["10km du Beaujolais", "Semi-marathon de Paris", "Marathon de Paris", "Course Super U du nouvel an 2022"],
     correct: 2,
   },
   {
-    question: `Où est-ce que le magnifique couple formé par ${CONFIG.groom} et ${CONFIG.bride} n'a t'il pas vécu ?`,
+    question: `Où est-ce que le magnifique couple formé par ${CONFIG.groom} et ${CONFIG.bride} n'a-t-il pas vécu ?`,
     answers: ["Paris", "Biarritz", "Canada", "Valencia"],
     correct: 2,
   },
@@ -117,7 +117,7 @@ const QUESTIONS = [
     correct: 2,
   },
   {
-    question: "Quel est l'agrûme emblême du couple ?",
+    question: "Quelle est l'agrûme emblême du couple ?",
     answers: ["L'orange", "Le pomello", "Le pamplemousse", "Le citron"],
     correct: 4,
   },
