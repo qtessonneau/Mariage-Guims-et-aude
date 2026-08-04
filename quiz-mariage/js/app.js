@@ -27,11 +27,6 @@ const QUESTIONS = [
     correct: 4,
   },
   {
-    question: `Quelle est la date de naissance de ${CONFIG.groom} ?`,
-    answers: ["11 Août", "30 Février", "15 Juillet", "3 Septembre"],
-    correct: 1,
-  },
-  {
     question: `Quel pays ${CONFIG.bride} a visité ?`,
     answers: ["Brésil", "Kenya", "Sri-lanka", "Albanie"],
     correct: 3,
@@ -57,16 +52,6 @@ const QUESTIONS = [
     correct: 1,
   },
   {
-    question: "Qui risque de finir la soirée le plus pompette ?",
-    answers: ["Aude", "Guims", "Les témoins", "Tout le monde"],
-    correct: 4,
-  },
-  {
-    question: `Qui dit le plus souvent « Je t'aime » ?`,
-    answers: [CONFIG.bride, CONFIG.groom, "Lara Fabian", "Les deux autant l'un que l'autre"],
-    correct: 4,
-  },
-  {
     question: "Quel est le surnom que se donnent les mariés ?",
     answers: ["Mon cœur", "Mon chat", "Mon Tyrannosaure", "Mon amour"],
     correct: 2,
@@ -83,12 +68,12 @@ const QUESTIONS = [
   },
   {
     question: "Que veux dire BAM ?",
-    answers: ["Be Aware of Music", "Bonobo in Mulhouse", "Boite À Musique", "Banjo Accordéon et Mandoline"],
+    answers: ["Be Aware of Music", "Burritos à  Mulhouse", "Boite À Musique", "Banjo Accordéon et Mandoline"],
     correct: 3,
   },
   {
-    question: `Quelle vidéo de Bien-être Simple ${CONFIG.bride} a présenté ?`,
-    answers: ["J'ai échappé à une secte", "Les secrets de Sharon", "La santé mentale en entreprise", "Les hémorroïdes, ce fléau"],
+    question: `Quelle podcast ${CONFIG.bride} a présenté ?`,
+    answers: ["J'ai échappé à une secte", "Les secrets de Sharon", "La santé mentale en entreprise", "Les podcasts, ce fléau"],
     correct: 2,
   },
   {
@@ -97,19 +82,9 @@ const QUESTIONS = [
     correct: 2,
   },
   {
-    question: `Où est-ce que le magnifique couple formé par ${CONFIG.groom} et ${CONFIG.bride} n'a-t-il pas vécu ?`,
-    answers: ["Paris", "Biarritz", "Canada", "Valencia"],
-    correct: 2,
-  },
-  {
     question: `Quel est le deuxième prénom de ${CONFIG.bride} ?`,
     answers: ["Marie", "Camille", "Maïté", "Emaztegaia"],
     correct: 3,
-  },
-  {
-    question: `Quel sport ${CONFIG.bride} n'a pas pratiqué ?`,
-    answers: ["Voile", "Ski", "Equitation", "Judo"],
-    correct: 4,
   },
   {
     question: "Comment s'appelle le lieu du mariage ?",
@@ -133,11 +108,10 @@ function isCorrectAnswer(question, answerIndex) {
 }
 
 const MESSAGES = [
-  { min: 0, max: 5, title: "Il faut mieux les connaître !", message: "Pas de panique — on est tous venu pour la bouffe en vrai" },
-  { min: 6, max: 10, title: "Pas mal !", message: "Le Patxaran va vous aider à récolter plus d'informations." },
-  { min: 11, max: 15, title: "Tout à fait respectable", message: "Vous connaissez les mariés ! Il reste encore quelques secrets à découvrir.. Apéro ?" },
-  { min: 16, max: 18, title: "Très bien !", message: "Vous êtes malheureusement proche du couple, force à vous." },
-  { min: 19, max: 20, title: "Expert du couple !", message: "Lèche botte va !." },
+  { min: 0, max: 4, title: "Il faut mieux les connaître !", message: "Pas de panique — on est tous venu pour la bouffe en vrai" },
+  { min: 5, max: 9, title: "Pas mal !", message: "Le Patxaran va vous aider à récolter plus d'informations." },
+  { min: 10, max: 13, title: "Très bien !", message: "Vous connaissez les mariés ! Il reste encore quelques secrets à découvrir.. Apéro ?" },
+  { min: 14, max: 15, title: "Expert du couple !", message: "Lèche botte va !." },
 ];
 
 /* ─── Firebase ─── */
